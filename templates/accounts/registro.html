@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Cadastro - Wiki UFVJM{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-5">
+                <h2 class="card-title text-center mb-4">Crie sua Conta</h2>
+                <p class="text-muted text-center mb-4">Junte-se à comunidade da Wiki UFVJM para colaborar e criar páginas.</p>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    {{ form.as_p }}
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-success btn-lg">Cadastrar</button>
+                    </div>
+                </form>
+                
+                <div class="text-center mt-4">
+                    <p>Já possui uma conta? <a href="{% url 'accounts:login' %}" class="text-decoration-none">Faça login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

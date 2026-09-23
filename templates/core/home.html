@@ -1,0 +1,48 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Início - Wiki UFVJM{% endblock %}
+
+{% block content %}
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm border">
+        <div class="container-fluid py-3">
+            <h1 class="display-5 fw-bold">Bem-vindo à Wiki da UFVJM!</h1>
+            <p class="col-md-8 fs-4 mt-3">
+                A plataforma colaborativa para centralizar conhecimentos sobre cursos, disciplinas, laboratórios e projetos de extensão da nossa comunidade acadêmica.
+            </p>
+            <a href="#" class="btn btn-primary btn-lg mt-2">Explorar Conhecimento</a>
+        </div>
+    </div>
+
+    <div class="row align-items-md-stretch mt-4">
+        
+        <div class="col-md-6 mb-3">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2>Páginas Atualizadas</h2>
+                <p>Veja as últimas contribuições da nossa comunidade:</p>
+                
+                {% if paginas_recentes %}
+                    <ul class="mt-3">
+                        {% for pagina in paginas_recentes %}
+                            <li>
+                                <a href="#" class="text-white">
+                                    {{ pagina.titulo }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                {% else %}
+                    <p class="mt-3"><em>Nenhuma página foi criada ainda. Seja o primeiro a contribuir!</em></p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="h-100 p-5 bg-light border rounded-3">
+                <h2>Agenda Universitária</h2>
+                <p>Fique por dentro de workshops, simpósios, calouradas e demais eventos acontecendo nos campi.</p>
+                <a href="#" class="btn btn-outline-dark mt-3">Ver calendário de eventos</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
