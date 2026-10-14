@@ -24,7 +24,7 @@
                         <a class="nav-link" href="{% url "core:home" %}">Início</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Buscar Páginas</a>
+                        <a class="nav-link" href="{% url "wiki:busca" %}">Buscar Páginas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Eventos</a>
@@ -33,7 +33,7 @@
                 
                 <ul class="navbar-nav">
                     {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="#">Nova Página</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'wiki:criar_pagina' %}">Nova Página</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Olá, {{ user.username }}</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url "accounts:logout" %}">Sair</a></li>
                     {% else %}

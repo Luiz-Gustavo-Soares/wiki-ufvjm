@@ -1,0 +1,58 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Buscar na Wiki - Wiki UFVJM{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <h1 class="mb-4 fw-bold">Explorar a Base de Conhecimento</h1>
+        
+        <!-- Formulário de Busca utilizando método GET -->
+        <form method="GET" action="{% url 'wiki:busca' %}" class="d-flex mb-5 shadow-sm">
+            <!-- Mantemos o termo pesquisado no input usando {{ query }} -->
+            <input class="form-control form-control-lg me-2 border-primary" type="search" name="q" value="{{ query }}" placeholder="Buscar por título (ex: Laboratório de Redes)..." aria-label="Buscar">
+            <button class="btn btn-primary btn-lg px-4" type="submit">Buscar</button>
+        </form>
+
+        <!-- Área de Exibição dos Resultados -->
+        <div>
+            {% if query %}
+                <h4 class="mb-4 text-muted">Resultados para "<span class="text-dark">{{ query }}</span>"</h4>
+            {% else %}
+                <h4 class="mb-4 text-muted">Páginas adicionadas recentemente</h4>
+            {% endif %}
+
+            {% if paginas %}
+                <div class="list-group">
+                    <!-- Iterando sobre as páginas retornadas pelo contexto[cite: 4] -->
+                    {% for pagina in paginas %}
+                        <a href="{% url 'wiki:detalhe' pagina_slug=pagina.slug %}" class="list-group-item list-group-item-action p-4 mb-3 shadow-sm border rounded">
+                            <div class="d-flex w-100 justify-content-between align-items-center">
+                                <h4 class="mb-1 text-primary fw-bold">{{ pagina.titulo }}</h4>
+                                <small class="text-muted d-none d-sm-block">{{ pagina.atualizado_em|date:"d/m/Y" }}</small>
+                            </div>
+                            
+                            {% if pagina.categoria %}
+                                <p class="mb-2 mt-1">
+                                    <span class="badge bg-secondary">{{ pagina.categoria.nome }}</span>
+                                </p>
+                            {% endif %}
+                            
+                            <small class="text-muted">
+                                <!-- Mostra o autor[cite: 3] e fallback caso não tenha autor associado -->
+                                Atualizado por {{ pagina.autor.username|default:"Colaborador Desconhecido" }}
+                            </small>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <!-- Mensagem caso a busca com 'icontains' não encontre resultados[cite: 1] -->
+                <div class="alert alert-warning p-4" role="alert">
+                    <h5 class="alert-heading">Nenhuma página encontrada!</h5>
+                    <p class="mb-0">Não encontramos nenhum conteúdo com o termo pesquisado. Que tal <a href="{% url 'wiki:criar' %}" class="alert-link">criar uma nova página</a> para ajudar a comunidade?</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

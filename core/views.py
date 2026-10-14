@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
+from wiki.models import Pagina, Categoria
 
 def home(request):
     context = {
@@ -10,6 +10,14 @@ def home(request):
                 {'titulo': 'Como sobreviver a Buosi', 'slug': 'sobreviver-buosi'},
             ]
         }
+
+
+    
+    paginas = Pagina.objects.all()
+ 
+
+
+    print(paginas)
 
     return render(request, 'core/home.html', context=context)
 
