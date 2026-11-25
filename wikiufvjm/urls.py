@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from debug_toolbar.toolbar import debug_toolbar_urls
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +25,7 @@ urlpatterns = [
     path('eventos/', include('events.urls')),
     path('', include('core.urls')),
     path('', include('accounts.urls')),
-]
+] 
+
+if settings.DEBUG:
+    urlpatterns += debug_toolbar_urls()

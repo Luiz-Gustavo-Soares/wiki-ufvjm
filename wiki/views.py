@@ -8,11 +8,10 @@ from wiki.forms import PaginaForm
 def wiki_busca_view(request):
     query = request.GET.get('q', '')
 
-    if query:
-        paginas = Pagina.objects.filter(titulo__icontains=query).order_by('-atualizado_em')
+    paginas = Pagina.objects.select_related('autor', 'categoria').filter(ativo=True).order_by('-atualizado_em')
 
-    else: 
-        paginas = Pagina.objects.all().order_by('-atualizado_em')
+    if query:
+        paginas = paginas.filter(titulo__icontains=query)
 
     
     context = {

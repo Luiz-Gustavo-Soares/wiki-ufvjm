@@ -14,7 +14,8 @@ def home(request):
 
     
     paginas = Pagina.objects.all()
- 
+
+    paginas = paginas.order_by('titulo')
 
 
     print(paginas)
